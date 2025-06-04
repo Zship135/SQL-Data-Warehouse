@@ -1,5 +1,8 @@
 /*
-
+===============================================================
+Create Tables
+===============================================================
+This script creates the tables for our data, conforming to the definitions of the metadata in the CSV files.
 */
 
 
