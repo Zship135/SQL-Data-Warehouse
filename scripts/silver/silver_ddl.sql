@@ -12,8 +12,8 @@ CREATE TABLE silver.crm_cust_info (
 	cust_key CHAR(10),
 	cust_firstname VARCHAR(50),
 	cust_lastname VARCHAR(50),
-	cust_marital_status CHAR(1),
-	cust_gender CHAR(1),
+	cust_marital_status CHAR(50),
+	cust_gender CHAR(50),
 	cust_create_date DATE,
 	dwh_create_date TIMESTAMP DEFAULT current_timestamp
 );
