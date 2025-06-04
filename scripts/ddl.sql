@@ -2,7 +2,8 @@
 ===============================================================
 Create Tables
 ===============================================================
-This script creates the tables for our data, conforming to the definitions of the metadata in the CSV files.
+This script creates the tables for our data, conforming to the definitions of the metadata in the CSV files. The data is imported using the built-in import in PGAdmin.
+After importing the data, I checked the integrity of the data and the number of rows to ensure everything was imported correctly.
 */
 
 
@@ -61,3 +62,21 @@ CREATE TABLE bronze.erp_px_cat_g1v2 (
 	subcategory VARCHAR(50),
 	maintenance VARCHAR(3)
 );
+
+SELECT * FROM bronze.crm_cust_info;
+SELECT COUNT(*) FROM bronze.crm_cust_info;
+
+SELECT * FROM bronze.crm_product_info;
+SELECT COUNT(*) FROM bronze.crm_product_info;
+
+SELECT * FROM bronze.crm_sales_info;
+SELECT COUNT(*) FROM bronze.crm_sales_info;
+
+SELECT * FROM bronze.erp_cust_az12;
+SELECT COUNT(*) FROM bronze.erp_cust_az12;
+
+SELECT * FROM bronze.erp_loc_a101;
+SELECT COUNT(*) FROM bronze.erp_loc_a101;
+
+SELECT * FROM bronze.erp_px_cat_g1v2;
+SELECT COUNT(*) FROM bronze.erp_px_cat_g1v2;
