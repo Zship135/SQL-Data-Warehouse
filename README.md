@@ -46,7 +46,7 @@ Ordinarily, we would interview some sort of expert on the team to get the precis
 
 **Code**
 
-We will use data definition language (DDL) to write a script to create tables for our data.
+We will use data definition language (DDL) to write a [script](scripts/ddl.sql) to create tables for our data. The data from the CSV was imported using the built-in import feature in PGAdmin.
 
 
 
