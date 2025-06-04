@@ -1,6 +1,6 @@
 /*
 ===============================================================
-Create What Needs CLeaned in the Silver Layer
+Check What Needs Cleaned in the Silver Layer
 ===============================================================
 After cleaning the the bronze layer we want to make sure that the data was cleaned correctly by 
 checking again in the silver layer.
