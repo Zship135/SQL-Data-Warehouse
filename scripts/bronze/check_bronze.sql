@@ -1,8 +1,8 @@
 /*
 ===============================================================
-Create What Needs CLeaned in the Bronze Layer
+Check What Needs Cleaned in the Bronze Layer
 ===============================================================
-The purpose of this script is to check the integrity if the data in the bronze layer so we know what needs to be cleaned. We will write another script to insert
+The purpose of this script is to check the integrity of the data in the bronze layer so we know what needs to be cleaned. We will write another script to insert
 the cleaned data into the silver layer.
 */
 ---------------------------------------------------------------
