@@ -46,7 +46,15 @@ Ordinarily, we would interview some sort of expert on the team to get the precis
 
 **Code**
 
-We will use data definition language (DDL) to write a [script](scripts/ddl.sql) to create tables for our data. The data from the CSV was imported using the built-in import feature in PGAdmin.
+We will use data definition language (DDL) to write a [script](scripts/bronze/bronze_ddl.sql) to create tables for our data. The data from the CSV was imported using the built-in import feature in PGAdmin.
+Once this is all imported, we check the integrity of the data to make sure that the row count is correct and that the data was inserted into the correct columns.
+This is done with SELECT statements. The code for this can also be found [here](scripts/bronze/bronze_ddl.sql).
+
+The bronze layer is now complete. We have ingested the raw data from our two sources and now we are ready to get started on the silver layer.
+
+---
+
+**The Silver Layer**
 
 
 
