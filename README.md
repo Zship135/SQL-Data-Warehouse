@@ -69,6 +69,10 @@ For the analysis of this layer, we make a relational schema.
 
 Here we can see the columns of all of the tables from both of our sources and how they interconnect. Knowing this gives the data engineers insight into building the code of the silver layer.
 
+**Code** 
+
+First, the [DDL code](scripts/silver/silver_ddl.sql) is written. The tables in the silver layer are initially the same as the bronze. We add the dwh_create_date table to give additional information on when the last time the tables were created. 
+
 
 
 
