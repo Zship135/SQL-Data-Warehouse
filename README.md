@@ -56,7 +56,18 @@ The bronze layer is now complete. We have ingested the raw data from our two sou
 
 **The Silver Layer**
 
+The silver layer is where we clean the raw data from the bronze layer so that it is usable by our analysts. While this data is not business-ready, it is almost there. 
+We go through and analyze the structure of the data to understand the requirements for cleaning. This is done using a relational schema.
 
+![SilverLayer](https://github.com/user-attachments/assets/0fa607ee-7979-4e97-82e7-42698ba40fec)
+
+**Analyze**
+
+For the analysis of this layer, we make a relational schema.
+
+![DataStructure](https://github.com/user-attachments/assets/be3396fd-cb88-4639-9967-ee764a9666b1)
+
+Here we can see the columns of all of the tables from both of our sources and how they interconnect. Knowing this gives the data engineers insight into building the code of the silver layer.
 
 
 
