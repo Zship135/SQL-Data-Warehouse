@@ -43,14 +43,14 @@ FROM (
 ----------------------------------------------
 
 INSERT INTO silver.crm_product_info (
-product_id,
-cat_id,
-product_key,
-product_name,
-product_cost,
-product_line,
-product_start_date,
-product_end_date
+	product_id,
+	cat_id,
+	product_key,
+	product_name,
+	product_cost,
+	product_line,
+	product_start_date,
+	product_end_date
 )
 SELECT
 product_id,
@@ -68,4 +68,40 @@ END AS product_line,
 CAST(product_start_date AS DATE) AS product_start_date,
 CAST(LEAD (product_start_date) OVER (PARTITION BY product_key ORDER BY product_start_date)-1 AS DATE) AS product_end_date
 FROM bronze.crm_product_info;
+
+----------------------------------------------
+-- crm_sales_info --
+----------------------------------------------
+INSERT INTO silver.crm_sales_info (
+	sales_order_num,
+	sales_product_key,
+	sales_cust_id,
+	sales_order_date,
+	sales_ship_date,
+	sales_due_date,
+	sales_sales,
+	sales_quantity,
+	sales_price
+)
+SELECT
+sales_order_num,
+sales_product_key,
+sales_cust_id,
+CASE WHEN sales_order_date <= 0 OR LENGTH(sales_order_date::TEXT) != 8 THEN NULL
+	 ELSE CAST(CAST(sales_order_date AS VARCHAR)AS DATE)
+END AS sales_order_date,
+CASE WHEN sales_ship_date <= 0 OR LENGTH(sales_ship_date::TEXT) != 8 THEN NULL
+	 ELSE CAST(CAST(sales_ship_date AS VARCHAR)AS DATE)
+END AS sales_ship_date,
+CASE WHEN sales_due_date <= 0 OR LENGTH(sales_due_date::TEXT) != 8 THEN NULL
+	 ELSE CAST(CAST(sales_due_date AS VARCHAR)AS DATE)
+END AS sales_due_date,
+CASE WHEN sales_sales <= 0 OR sales_sales IS NULL OR sales_sales != ABS(sales_quantity) * ABS(sales_price) THEN ABS(sales_quantity) * ABS(sales_price)
+	 ELSE sales_sales
+END AS sales_sales,
+sales_quantity,
+CASE WHEN sales_price <= 0 OR sales_price IS NULL OR sales_price != ABS(sales_sales) / COALESCE(ABS(sales_quantity), 0) THEN ABS(sales_sales) / COALESCE(ABS(sales_quantity), 0)
+	 ELSE sales_price
+END AS sales_price
+FROM bronze.crm_sales_info;
 
