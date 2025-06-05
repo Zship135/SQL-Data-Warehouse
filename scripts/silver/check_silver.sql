@@ -70,4 +70,30 @@ SELECT *
 FROM silver.crm_product_info
 WHERE product_end_date < product_start_date; -- DOES NOT NEED CLEANED --
 
+---------------------------------------------------------------
+-- crm_sales_info --
+---------------------------------------------------------------
+
+-- Check data quality --
+-- Check unwanted white space --
+SELECT sales_order_num
+FROM silver.crm_sales_info
+WHERE sales_order_num != TRIM(sales_order_num); -- DOES NOT NEED CLEANED --
+
+SELECT sales_product_key
+FROM silver.crm_sales_info
+WHERE sales_product_key != TRIM(sales_product_key); -- DOES NOT NEED CLEANED --
+
+-- Check invalid dates --
+SELECT *
+FROM silver.crm_sales_info
+WHERE sales_order_date > sales_ship_date OR sales_ship_date > sales_due_date OR sales_order_date > sales_due_date;
+
+-- Check business rules --
+SELECT DISTINCT sales_sales, sales_quantity, sales_price
+FROM silver.crm_sales_info
+WHERE sales_sales != sales_quantity * sales_price
+OR sales_sales IS NULL OR sales_quantity IS NULL OR sales_price IS NULL
+OR sales_sales <= 0 OR sales_quantity <= 0 OR sales_price <= 0;
+
 
