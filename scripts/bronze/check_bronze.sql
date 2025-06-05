@@ -39,3 +39,35 @@ FROM bronze.crm_cust_info;
 
 SELECT DISTINCT cust_marital_status
 FROM bronze.crm_cust_info;
+
+---------------------------------------------------------------
+-- crm_product_info --
+---------------------------------------------------------------
+
+-- Check for duplicate primary key values and NULL primary key values --
+SELECT product_id, COUNT(*)
+FROM bronze.crm_product_info
+GROUP BY product_id
+HAVING COUNT(*) > 1 OR product_id IS NULL;
+
+-- Check data quality --
+-- Check unwanted white space --
+SELECT product_name
+FROM bronze.crm_product_info
+WHERE product_name != TRIM(product_name); -- DOES NOT NEED CLEANED --
+
+-- Check for negative numbers or NULL --
+SELECT product_cost
+FROM bronze.crm_product_info
+WHERE product_cost < 0 OR product_cost IS NULL; -- HAS NULL VALUES --
+
+-- check data consistency --
+SELECT DISTINCT product_line
+FROM bronze.crm_product_info;
+
+-- check for invalid dates
+SELECT *
+FROM bronze.crm_product_info
+WHERE product_end_date < product_start_date;
+
+
