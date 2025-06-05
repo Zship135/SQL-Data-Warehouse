@@ -96,11 +96,11 @@ END AS sales_ship_date,
 CASE WHEN sales_due_date <= 0 OR LENGTH(sales_due_date::TEXT) != 8 THEN NULL
 	 ELSE CAST(CAST(sales_due_date AS VARCHAR)AS DATE)
 END AS sales_due_date,
-CASE WHEN sales_sales <= 0 OR sales_sales IS NULL OR sales_sales != ABS(sales_quantity) * ABS(sales_price) THEN ABS(sales_quantity) * ABS(sales_price)
+CASE WHEN sales_sales <= 0 OR sales_sales IS NULL OR sales_sales != sales_quantity * ABS(sales_price) THEN sales_quantity * ABS(sales_price)
 	 ELSE sales_sales
 END AS sales_sales,
 sales_quantity,
-CASE WHEN sales_price <= 0 OR sales_price IS NULL OR sales_price != ABS(sales_sales) / COALESCE(ABS(sales_quantity), 0) THEN ABS(sales_sales) / COALESCE(ABS(sales_quantity), 0)
+CASE WHEN sales_price <= 0 OR sales_price IS NULL THEN sales_sales / sales_quantity
 	 ELSE sales_price
 END AS sales_price
 FROM bronze.crm_sales_info;
