@@ -21,10 +21,11 @@ CREATE TABLE silver.crm_cust_info (
 DROP TABLE IF EXISTS silver.crm_product_info;
 CREATE TABLE silver.crm_product_info (
 	product_id CHAR(3),
+	cat_id VARCHAR(50),
 	product_key VARCHAR(20),
 	product_name VARCHAR(250),
 	product_cost INT,
-	product_line CHAR(1),
+	product_line VARCHAR(50),
 	product_start_date DATE,
 	product_end_date DATE,
 	dwh_create_date TIMESTAMP DEFAULT current_timestamp
