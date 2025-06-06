@@ -2,10 +2,9 @@
 ===============================================================
 DDL for Bronze Layer
 ===============================================================
-This script creates the tables for our data, conforming to the definitions of the metadata in the CSV files. The data is imported using the built-in import in PGAdmin.
-After importing the data, I checked the integrity of the data and the number of rows to ensure everything was imported correctly.
+Purpose:
+	This script creates the tables for the bronze layer using the metadata of the CSV files to define datatypes. 
 */
-
 
 DROP TABLE IF EXISTS bronze.crm_cust_info;
 CREATE TABLE bronze.crm_cust_info (
