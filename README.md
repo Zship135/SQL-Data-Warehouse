@@ -7,7 +7,7 @@
 
 - [3. Initialize](#Initialize)
 
-- [4. Builing the Warehouse](#Building-the-Warehouse)
+- [4. Building the Warehouse](#Building-the-Warehouse)
 
   - [a. The Bronze Layer](#The-Bronze-Layer)
 
@@ -26,20 +26,20 @@ The goal is to ensure that all stakeholders, analysts, and business users access
 ## Warehouse Architecture
 ### Overview
 
-Undertaking this project would require planning and collaboration with stakeholders and experts in the company. Using these expertise and needs of the company we must outline our extract, transform, and load (ETL) process.
+Undertaking this project would require planning and collaboration with stakeholders and experts in the company. Using the expertise and needs of the company we must outline our extract, transform, and load (ETL) process.
 <br>
 <br>
 <br>
 ***extraction***
 
 For the extraction we are using a pull extraction where the warehouse reads the data directly from the CSV files. All of the data will be extracted from each file all
-at once meaning we will full extract. Lastly, our extraction technique will be file parsing, as we are working with CSV files. 
+at once meaning we will fully extract. Lastly, our extraction technique will be file parsing, as we are working with CSV files. 
 <br>
 <br>
 <br>
 ***transformation***
 
-All sorts of transformation is required in any architecture. In general, techniques of data enrichment, integration, normalization/ standardization, and aggregation will be needed. Removal of duplicate keys and outliers is also necessary. Data must also be consistent and follow common business rules and calculations.
+All sorts of transformations are required in any architecture. In general, techniques of data enrichment, integration, normalization/ standardization, and aggregation will be needed. Removal of duplicate keys and outliers is also necessary. Data must also be consistent and follow common business rules and calculations.
 <br>
 <br>
 <br>
@@ -51,13 +51,13 @@ The data will be loaded in batches to the warehouse to ensure analysts and stake
 <br>
 ***Warehouse Architecture***
 
-For the general architecture we will use a Medallion Architecture with three layers: bronze, silver, and gold.
+For the general architecture, we will use a Medallion Architecture with three layers: bronze, silver, and gold.
 - Bronze: raw data directly from the CSV files
   - accessibility: data engineer
 - Silver: transformed, cleaned data
   - accessibility: data engineer, data analyst
-- Gold: Business ready data which has simplified naming and is divided into integrated facts and dimension tables
-  - accessibility: data analyst, business-users, stackholders
+- Gold: Business-ready data that has simplified naming and is divided into integrated facts and dimension tables
+  - accessibility: data analyst, business users, stakeholders
 
 ![HighLevelOverviewOfArchitecture](https://github.com/user-attachments/assets/2ca377f8-3946-456b-80a0-f045577e43d6)
 
@@ -65,7 +65,7 @@ For the general architecture we will use a Medallion Architecture with three lay
 
 ## Initialize
 
-The [script to initialize](scripts/init_database.sql) the database is used to create the 'DataWarehouse' database which will house all of our data. The script also creates three schemas, 'bronze', 'silver', and 'gold'. These schemas will hold all tables, views, and procedures for each layer.
+The [script to initialize](scripts/init_database.sql) database is used to create the 'DataWarehouse' database which will house all of our data. The script also creates three schemas, 'bronze', 'silver', and 'gold'. These schemas will hold all tables, views, and procedures for each layer.
 
 ---
 
@@ -86,8 +86,7 @@ Ordinarily, we would interview some sort of expert on the team to get the precis
 
 **Code**
 
-We will use data definition language (DDL) to write a [script](scripts/bronze/bronze_ddl.sql) to create tables for our data. The data from the CSV was imported using the built-in import feature in PGAdmin.
-Once this is all imported, we check the integrity of the data to make sure that the row count is correct and that the data was inserted into the correct columns.
+We will use data definition language (DDL) to write a [script](scripts/bronze/bronze_ddl.sql) to create tables for our data. We import data from the CSV files directly using a [store procedure](scripts/bronze/bronze_store_procedure.sql). To import the data we need to use PSQL within pgAdmin to gain access to the COPY function. Once this is all imported, we check the integrity of the data to make sure that the row count is correct and that the data was inserted into the correct columns.
 This is done with SELECT statements. The code for this can also be found [here](scripts/bronze/bronze_ddl.sql).
 
 The bronze layer is now complete. We have ingested the raw data from our two sources and now we are ready to get started on the silver layer.
