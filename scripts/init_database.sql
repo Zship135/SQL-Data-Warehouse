@@ -2,17 +2,18 @@
 ===============================================================
 Create Database and Schemas
 ===============================================================
-The purpose of this script is to initialize a new database named "DataWarehouse" if it does not already exist.
-It is also meant to create three schemas, "bronze", "silver", and "gold."
+Purpose:
+  This script directs into the DataWarehouse database if need be. It drops the database and recreates it if it already exists. The last purpose is to create the schemas
+  for the three layers of the warehouse, 'bronze', 'silver', and 'gold'.
 
 WARNING:
   Running this script WILL drop the "DataWarehouse" database and all of the content in it. Please have backups before running this.
 */
 
+-- Make sure you are in the correct database if need be
 -- Database: DataWarehouse
 
--- DROP DATABASE IF EXISTS "DataWarehouse";
-
+DROP DATABASE IF EXISTS "DataWarehouse";
 CREATE DATABASE "DataWarehouse"
     WITH
     OWNER = postgres
