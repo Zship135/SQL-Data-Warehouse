@@ -7,6 +7,7 @@ Insert Clean Data Into Silver Layer
 ----------------------------------------------
 -- crm_cust_info --
 ----------------------------------------------
+TRUNCATE TABLE silver.crm_cust_info;
 INSERT INTO silver.crm_cust_info (
   cust_id,
   cust_key,
@@ -42,6 +43,7 @@ FROM (
 -- crm_product_info --
 ----------------------------------------------
 
+TRUNCATE TABLE silver.crm_product_info;
 INSERT INTO silver.crm_product_info (
 	product_id,
 	cat_id,
@@ -72,6 +74,8 @@ FROM bronze.crm_product_info;
 ----------------------------------------------
 -- crm_sales_info --
 ----------------------------------------------
+
+TRUNCATE TABLE silver.crm_sales_info; 
 INSERT INTO silver.crm_sales_info (
 	sales_order_num,
 	sales_product_key,
@@ -104,4 +108,68 @@ CASE WHEN sales_price <= 0 OR sales_price IS NULL THEN sales_sales / sales_quant
 	 ELSE sales_price
 END AS sales_price
 FROM bronze.crm_sales_info;
+
+----------------------------------------------
+-- erp_cust_az12 --
+----------------------------------------------
+
+TRUNCATE TABLE silver.erp_cust_az12; 
+INSERT INTO silver.erp_cust_az12 (
+	cust_id,
+	birthdate,
+	gender
+)
+SELECT
+CASE WHEN cust_id LIKE 'NAS%' THEN SUBSTRING(cust_id, 4, LENGTH(cust_id))
+	 ELSE cust_id
+END AS cust_id,
+CASE WHEN birthdate > CURRENT_DATE THEN NULL
+	 ELSE birthdate
+END AS birthdate,
+CASE UPPER(TRIM(gender))
+	 WHEN '' THEN 'n/a'
+	 WHEN 'M' THEN 'Male'
+	 WHEN 'F' THEN 'Female'
+	 ELSE 'n/a'
+END AS gender
+FROM bronze.erp_cust_az12;
+
+----------------------------------------------
+-- erp_loc_a101 --
+----------------------------------------------
+
+TRUNCATE TABLE silver.erp_loc_a101;
+INSERT INTO silver.erp_loc_a101 (
+	cust_id,
+	country
+)
+SELECT
+REPLACE(cust_id, '-', '') AS cust_id,
+CASE WHEN TRIM(country) = 'DE' THEN 'Germany'
+	 WHEN TRIM(country) = '' THEN 'n/a'
+	 WHEN country IS NULL THEN 'n/a'
+	 WHEN TRIM(country) = 'US' THEN 'United States'
+	 WHEN TRIM(country) = 'DE' THEN 'Germany'
+	 WHEN TRIM(country) = 'USA' THEN 'United States'
+	 ELSE country
+END AS country
+FROM bronze.erp_loc_a101;
+
+----------------------------------------------
+-- erp_px_cat_g1v2 --
+----------------------------------------------
+
+TRUNCATE TABLE silver.erp_px_cat_g1v2; 
+INSERT INTO silver.erp_px_cat_g1v2 (
+	id,
+	category,
+	subcategory,
+	maintenance
+)
+SELECT 
+id,
+category,
+subcategory,
+maintenance
+FROM bronze.erp_px_cat_g1v2;
 
