@@ -126,11 +126,10 @@ END AS cust_id,
 CASE WHEN birthdate > CURRENT_DATE THEN NULL
 	 ELSE birthdate
 END AS birthdate,
-CASE UPPER(TRIM(gender))
-	 WHEN '' THEN 'n/a'
-	 WHEN 'M' THEN 'Male'
-	 WHEN 'F' THEN 'Female'
-	 ELSE 'n/a'
+CASE WHEN UPPER(TRIM(gender)) = '' THEN 'n/a'
+	 WHEN UPPER(TRIM(gender)) = 'M' THEN 'Male'
+	 WHEN UPPER(TRIM(gender)) = 'F' THEN 'Female'
+	 ELSE gender
 END AS gender
 FROM bronze.erp_cust_az12;
 
