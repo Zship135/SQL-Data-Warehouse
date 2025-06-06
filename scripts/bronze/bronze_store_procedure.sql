@@ -2,8 +2,9 @@
 ===============================================================
 Bronze Layer Store Procedure
 ===============================================================
-This script creates a store procedure for the bronze layer with update messages included. We need to use PSQL for this since
-pgAdmin does not have the 'COPY' function.
+Purpose:
+	This script creates a store procedure for the bronze layer with update messages included. We need to use PSQL for this since
+	pgAdmin does not have the 'COPY' function.
 */
 
 CREATE OR REPLACE PROCEDURE bronze.load_bronze()
