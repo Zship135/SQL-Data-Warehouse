@@ -1,6 +1,6 @@
 /*
 ===============================================================
-Create Tables For Silver Layer
+DDL for Silver Layer
 ===============================================================
 This script creates the tables for the silver layer by copying the content from the bronze layer with the addition
 of the dwh_create_date column. This new column describes the last time the silver layer was created.
