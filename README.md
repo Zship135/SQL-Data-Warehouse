@@ -1,47 +1,83 @@
 # SQL-Data-Warehouse
 
 ### Table of Contents
-[1. Problem Statement](#Problem-Statement)
+- [1. Problem Statement](#Problem-Statement)
 
-### Problem Statement
-**Objective**
+- [2. Warehouse Architecture](#Warehouse-Architecture)
 
-Develop a modern data warehouse using PostgreSQL to consolidate customer, sales, and product data for enhanced data analyses and business decision-making. 
+- [3. Initialize](#Initialize)
 
-**Specification**
+- [4. Builing the Warehouse](#Building-the-Warehouse)
 
-- **Data Source**: Import CRM and ERP data from CSV files.
-- **Data Architecture**: Building a data warehouse using Medallion Architecture.
+  - [a. The Bronze Layer](#The-Bronze-Layer)
 
 ---
 
-# Building the Architecture
-**Overview**
+## Problem Statement
 
-Before building the warehouse we need to know three things: where the data is coming from, how the warehouse will process it, and what it will be used for once loaded into the warehouse. Here is an illustration of how this will look.
+In many organizations, business data is spread across operational systems such as customer relationship managers (CRM) and enterprise resource planners (ERP). This fragmentation introduces challenges for data analysts, who often spend considerable time locating, cleaning, and reconciling inconsistent datasets.
+
+This project addresses this by designing and implementing a centralized data warehouse using PostgreSQL. The warehouse ingests structured data exported from CRM and ERP systems in the form of CSV files, transforming it through multiple layers of refinement based on the Medallion Architecture (bronze, silver, gold).
+
+The goal is to ensure that all stakeholders, analysts, and business users access the same consistent, clean, and well-structured data. This approach reduces the time spent on manual data preparation, improves data quality, and establishes a single source of data for reporting and analysis. In a real-world context, collaboration with a source systems engineer would be essential to resolve discrepancies and clarify data lineage.
+
+---
+
+## Warehouse Architecture
+### Overview
+
+Undertaking this project would require planning and collaboration with stakeholders and experts in the company. Using these expertise and needs of the company we must outline our extract, transform, and load (ETL) process.
+<br>
+<br>
+<br>
+***extraction***
+
+For the extraction we are using a pull extraction where the warehouse reads the data directly from the CSV files. All of the data will be extracted from each file all
+at once meaning we will full extract. Lastly, our extraction technique will be file parsing, as we are working with CSV files. 
+<br>
+<br>
+<br>
+***transformation***
+
+All sorts of transformation is required in any architecture. In general, techniques of data enrichment, integration, normalization/ standardization, and aggregation will be needed. Removal of duplicate keys and outliers is also necessary. Data must also be consistent and follow common business rules and calculations.
+<br>
+<br>
+<br>
+***loading***
+
+The data will be loaded in batches to the warehouse to ensure analysts and stakeholders have common information at any given time. All data will be fully loaded by truncating tables within the warehouse and inserting extracted data back in. We will use a Type 1 Common Changing Dimension (SCD 1) meaning we will simply overwrite previous data within the warehouse in each batch.
+<br>
+<br>
+<br>
+***Warehouse Architecture***
+
+For the general architecture we will use a Medallion Architecture with three layers: bronze, silver, and gold.
+- Bronze: raw data directly from the CSV files
+  - accessibility: data engineer
+- Silver: transformed, cleaned data
+  - accessibility: data engineer, data analyst
+- Gold: Business ready data which has simplified naming and is divided into integrated facts and dimension tables
+  - accessibility: data analyst, business-users, stackholders
 
 ![HighLevelOverviewOfArchitecture](https://github.com/user-attachments/assets/2ca377f8-3946-456b-80a0-f045577e43d6)
 
-We are extracting our data by parsing CSV files and then using several layers in the warehouse to transform and load the data. Finally, our data analysts and business users can consume the data.
+---
+
+## Initialize
+
+The [script to initialize](scripts/init_database.sql) the database is used to create the 'DataWarehouse' database which will house all of our data. The script also creates three schemas, 'bronze', 'silver', and 'gold'. These schemas will hold all tables, views, and procedures for each layer.
 
 ---
 
-**Initialize**
+## Building the Warehouse
 
-Having this overview, we can begin to sketch out our database with PostgreSQL. The script for this initialization can be found [here](scripts/init_database.sql).
-The general idea of the script is as follows:
-- If the "Data Warehouse" database already exists, drop it and recreate it.
-- Create the schemas for our three layers, "bronze", "silver", and "gold".
+### The Bronze Layer
 
----
-
-**The Bronze Layer**
-
-The purpose of the bronze layer is to take raw, unprocessed data and store it in tables. This layer is what takes from our sources ()in our case, CSV files). Data Engineers are the only people intended to see this data as allowing anyone else access would be unnecessary because we will have better data in the silver and gold layers. Here is a breakdown of how we will make the bronze layer.
+The purpose of the bronze layer is to take raw, unprocessed data and store it in tables. This layer is what takes from our sources (in our case, CSV files). Data Engineers are the only people intended to see this data as allowing anyone else access would be unnecessary because we will have better data in the silver and gold layers. Here is a breakdown of how we will make the bronze layer.
 
 ![BronzeLayer](https://github.com/user-attachments/assets/ce7337bd-9e25-4d28-b63d-7cd23704aa2a)
 
-**Analyze**
+***Analyze***
 
 Ordinarily, we would interview some sort of expert on the team to get the precise specifications and tech stack for building the warehouse. Let us say that these are our specifications for extraction:
 - We will use a type of extraction known as full extraction. This means we will take all of the data from the source at one time.
