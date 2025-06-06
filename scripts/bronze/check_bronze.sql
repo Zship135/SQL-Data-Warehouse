@@ -6,6 +6,7 @@ Purpose:
   The purpose of this script is to check the integrity of the data in the bronze layer so we know what needs to be cleaned. We will write another script to insert
   the cleaned data into the silver layer.
 */
+
 ---------------------------------------------------------------
 -- crm_cust_info --
 ---------------------------------------------------------------
