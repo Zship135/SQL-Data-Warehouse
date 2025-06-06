@@ -1,6 +1,6 @@
 /*
 ===============================================================
-Create Tables
+DDL for Bronze Layer
 ===============================================================
 This script creates the tables for our data, conforming to the definitions of the metadata in the CSV files. The data is imported using the built-in import in PGAdmin.
 After importing the data, I checked the integrity of the data and the number of rows to ensure everything was imported correctly.
