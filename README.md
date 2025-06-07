@@ -132,7 +132,7 @@ The process of coding and analyzing cycles until the data is properly cleaned.
 
 **Analyze**
 
-To validate and clean the data it is important to understand how the tables are related. This is especially important with multiple data sources. In addition to looking at the relationships, we can use scripts to check what needs cleaning in the bronze layer. We can also take a look at the silver layer added onto the current data lineage. 
+To validate and clean the data it is important to understand how the tables are related. This is especially important with multiple data sources. In addition to looking at the relationships, we can use scripts to check what needs cleaning in the bronze layer. We can also take a look at the silver layer added to the current data lineage. 
 > [Check Bronze Layer](scripts/bronze/check_bronze.sql)
 
 ![DataStructure](https://github.com/user-attachments/assets/a6b764ce-f362-4161-9208-19701ff0ea28)
@@ -145,7 +145,7 @@ To validate and clean the data it is important to understand how the tables are 
 
 **Code** 
 
-First, the DDL code is written. The tables in the silver layer are initially the same as the bronze. We add the dwh_create_date table to give additional information on when the last time the tables were created. We go through the process of cleaning each table one-by-one using what we learned by checking the bronze layer, and then writing a store procedure to insert the cleaned data.
+First, the DDL code is written. The tables in the silver layer are initially the same as the bronze. We add the dwh_create_date table to give additional information on when the last time the tables were created. We go through the process of cleaning each table one by one using what we learned by checking the bronze layer and then writing a store procedure to insert the cleaned data.
 > [Silver DDL](scripts/silver/silver_ddl.sql)
 
 > [Silver Layer Clean and Insert](scripts/silver/insert_clean_data.sql) 
@@ -163,7 +163,7 @@ After inserting the clean data into the silver layer, we must validate the silve
 
 ### The Gold Layer
 
-The gold layer is the final layer of the warehouse and where the data becomes business ready. Instead of tables, this layer will use views. Furthermore, we will use the Star Schema to connect our dimension tables and fact tables.
+The gold layer is the final layer of the warehouse and where the data becomes business-ready. Instead of tables, this layer will use views. Furthermore, we will use the Star Schema to connect our dimension tables and fact tables.
 
 <br>
 <br>
@@ -171,7 +171,7 @@ The gold layer is the final layer of the warehouse and where the data becomes bu
 
 ***Analyze***
 
-The first step to creating the gold layer is to combine the tables into more general, business friendly views. We do this by analyzing the integration model and categorizing each table into business objects. We can also get a look at the final data lineage of the entire warehouse.
+The first step to creating the gold layer is to combine the tables into more general, business-friendly views. We do this by analyzing the integration model and categorizing each table into business objects. We can also get a look at the final data lineage of the entire warehouse.
 
 ![BusinessObjects](https://github.com/user-attachments/assets/17b9f6ef-0452-4da5-b3ea-a0f76850a9ad)
 
@@ -185,15 +185,13 @@ The first step to creating the gold layer is to combine the tables into more gen
 
 ***Code***
 
-The code for thr gold layer invloves left joining tables of the same business object, integrating the data between them, and then giving the column names user friendly names. We then write a final store procedure.
+The code for the gold layer involves left joining tables of the same business object, integrating the data between them, and then giving the column names user-friendly names. We then write a final store procedure.
 
 > [Gold Layer DDL](scripts/gold/gold_ddl.sql)
 
 > [Gold Layer Store Procedure](scripts/gold/gold_store_procedure.sql)
 
-<br>
-<br>
-<br>
+---
 
 ## Conclusion
 
@@ -203,7 +201,7 @@ The bronze layer provides a secure landing zone for raw source data, the silver 
 
 While this project used static CSV files for simplicity, the architecture and methods used here are designed to scale toward more dynamic and automated ingestion scenarios. The result is a clean, centralized, and business-aligned data asset that reduces manual data wrangling and promotes consistent, trusted analytics.
 
-The final result to the business user in the gold layer is a data mart which can be described by the following schema.
+The final result for the business user in the gold layer is a data mart which can be described by the following schema.
 
 ![DataMart](https://github.com/user-attachments/assets/723e7dae-556d-43b8-85e3-ee597bb6e8a0)
 
