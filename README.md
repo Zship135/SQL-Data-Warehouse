@@ -205,6 +205,9 @@ The final result for the business user in the gold layer is a data mart which ca
 
 ![DataMart](https://github.com/user-attachments/assets/723e7dae-556d-43b8-85e3-ee597bb6e8a0)
 
+---
+ 
+
 
 
 
