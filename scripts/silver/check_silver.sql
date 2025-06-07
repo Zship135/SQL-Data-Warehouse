@@ -2,8 +2,9 @@
 ===============================================================
 Check What Needs Cleaning in the Silver Layer
 ===============================================================
-After cleaning the bronze layer we want to make sure that the data was cleaned correctly by 
-checking again in the silver layer.
+Purpose:
+  After cleaning the bronze layer we want to make sure that the data was cleaned correctly by 
+  checking again in the silver layer.
 */
 ---------------------------------------------------------------
 -- crm_cust_info --
