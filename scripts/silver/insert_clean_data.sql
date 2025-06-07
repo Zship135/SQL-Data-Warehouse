@@ -2,11 +2,14 @@
 ===============================================================
 Insert Clean Data Into Silver Layer
 ===============================================================
-
+Purpose:
+	This script is what cleans the data from the bronze layer and inserts it into the silver layer.
 */
+
 ----------------------------------------------
 -- crm_cust_info --
 ----------------------------------------------
+
 TRUNCATE TABLE silver.crm_cust_info;
 INSERT INTO silver.crm_cust_info (
   cust_id,
