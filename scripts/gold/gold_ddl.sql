@@ -2,8 +2,9 @@
 ===============================================================
 DDL for Gold Layer
 ===============================================================
-This script creates the tables for the silver layer by copying the content from the bronze layer with the addition
-of the dwh_create_date column. This new column describes the last time the silver layer was created.
+Purpose:
+	This script creates the views of the gold layer based on business objects. It integrates the data between joined tables and gives user-friendly naming 
+	for each column.
 */
 
 -- Dimension for customers --
