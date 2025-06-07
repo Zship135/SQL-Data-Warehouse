@@ -1,3 +1,11 @@
+/*
+===============================================================
+Gold Layer Store Procedure
+===============================================================
+Purpose:
+	This script takes the DDL for the gold layer adnd puts it into a store procedure.
+*/
+
 CREATE OR REPLACE PROCEDURE gold.load_gold()
 LANGUAGE plpgsql
 AS
