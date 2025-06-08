@@ -38,7 +38,7 @@ Undertaking this project would require planning and collaboration with stakehold
 <br>
 ***extraction***
 
-For the extraction we are using a pull extraction where the warehouse reads the data directly from the CSV files. All of the data will be extracted from each file all
+We use a pull extraction where the warehouse reads the data directly from the CSV files. All of the data will be extracted from each file all
 at once meaning we will fully extract. Lastly, our extraction technique will be file parsing, as we are working with CSV files. 
 <br>
 <br>
@@ -71,7 +71,7 @@ For the general architecture, we will use a Medallion Architecture with three la
 
 ## Initialize
 
-The [script to initialize](scripts/init_database.sql) database is used to create the 'DataWarehouse' database which will house all of our data. The script also creates three schemas, 'bronze', 'silver', and 'gold'. These schemas will hold all tables, views, and procedures for each layer.
+The [script to initialize](scripts/init_database.sql) the database is used to create the 'DataWarehouse' database which will house all of our data. The script also creates three schemas, 'bronze', 'silver', and 'gold'. These schemas will hold all tables, views, and procedures for each layer.
 
 ---
 
@@ -145,7 +145,7 @@ To validate and clean the data it is important to understand how the tables are 
 
 **Code** 
 
-First, the DDL code is written. The tables in the silver layer are initially the same as the bronze. We add the dwh_create_date table to give additional information on when the last time the tables were created. We go through the process of cleaning each table one by one using what we learned by checking the bronze layer and then writing a store procedure to insert the cleaned data.
+First, the DDL code is written. The tables in the silver layer are initially the same as the bronze. We add the dwh_create_date table to give additional information on when the last time the tables were created. We went through the process of cleaning each table one by one using what we learned by checking the bronze layer and then writing a store procedure to insert the cleaned data.
 > [Silver DDL](scripts/silver/silver_ddl.sql)
 
 > [Silver Layer Clean and Insert](scripts/silver/insert_clean_data.sql) 
@@ -185,7 +185,7 @@ The first step to creating the gold layer is to combine the tables into more gen
 
 ***Code***
 
-The code for the gold layer involves left joining tables of the same business object, integrating the data between them, and then giving the column names user-friendly names. We then write a final store procedure.
+The code for the gold layer involves left joining tables of the same business object, integrating the data between them, and then giving the column user-friendly names. We then write a final store procedure.
 
 > [Gold Layer DDL](scripts/gold/gold_ddl.sql)
 
