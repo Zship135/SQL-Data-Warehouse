@@ -42,7 +42,7 @@ fact_sales
 | order_date    | DATE      | date when customer placed the order |
 | shipping_date | DATE      | date when product is shipped out    |
 | due_date      | DATE      | date when customer receives product |
-| sales_amount  | INT       | calculated by (quantity) * price    |
+| sales_amount  | INT       | calculated by (quantity * price)    |
 | quantity      | INT       | amount of product ordered           |
 | price         | INT       | price of product ordered            |
 -------------------------------------------------------------------
